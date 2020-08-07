@@ -16,6 +16,7 @@
 		567EB85124DD33C1006798F4 /* MapViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85024DD33C1006798F4 /* MapViewViewModel.swift */; };
 		567EB85424DD33E6006798F4 /* MapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85324DD33E6006798F4 /* MapViewUseCase.swift */; };
 		567EB85624DD33F2006798F4 /* MapViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85524DD33F2006798F4 /* MapViewRepository.swift */; };
+		84C6944CFF4F920EBD75D22D /* Pods_NearbyRestaurants.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B002D7B290EBBE59BE89F01A /* Pods_NearbyRestaurants.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,9 @@
 		567EB85024DD33C1006798F4 /* MapViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModel.swift; sourceTree = "<group>"; };
 		567EB85324DD33E6006798F4 /* MapViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewUseCase.swift; sourceTree = "<group>"; };
 		567EB85524DD33F2006798F4 /* MapViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepository.swift; sourceTree = "<group>"; };
+		5B00CCC8D8D8AD84A6D5092F /* Pods-NearbyRestaurants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyRestaurants.release.xcconfig"; path = "Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants.release.xcconfig"; sourceTree = "<group>"; };
+		B002D7B290EBBE59BE89F01A /* Pods_NearbyRestaurants.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyRestaurants.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B86F5DFBBCEF6894CC48368D /* Pods-NearbyRestaurants.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyRestaurants.debug.xcconfig"; path = "Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C6944CFF4F920EBD75D22D /* Pods_NearbyRestaurants.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				567EB83B24DD29CC006798F4 /* NearbyRestaurants */,
 				567EB83A24DD29CC006798F4 /* Products */,
+				E165883DB7E3B2C2F0044F01 /* Pods */,
+				9ABDA57E2F67D2D52A793600 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +123,24 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		9ABDA57E2F67D2D52A793600 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B002D7B290EBBE59BE89F01A /* Pods_NearbyRestaurants.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E165883DB7E3B2C2F0044F01 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B86F5DFBBCEF6894CC48368D /* Pods-NearbyRestaurants.debug.xcconfig */,
+				5B00CCC8D8D8AD84A6D5092F /* Pods-NearbyRestaurants.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,9 +148,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB84D24DD29D3006798F4 /* Build configuration list for PBXNativeTarget "NearbyRestaurants" */;
 			buildPhases = (
+				2E21834A7C7BDC02DC50A4FB /* [CP] Check Pods Manifest.lock */,
 				567EB83524DD29CC006798F4 /* Sources */,
 				567EB83624DD29CC006798F4 /* Frameworks */,
 				567EB83724DD29CC006798F4 /* Resources */,
+				68D526BFD9F423BC73B4F2AE /* [CP] Embed Pods Frameworks */,
+				D2AAABA1EAC84EE1C3735A20 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,6 +209,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E21834A7C7BDC02DC50A4FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NearbyRestaurants-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68D526BFD9F423BC73B4F2AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2AAABA1EAC84EE1C3735A20 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		567EB83524DD29CC006798F4 /* Sources */ = {
@@ -334,6 +421,7 @@
 		};
 		567EB84E24DD29D3006798F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B86F5DFBBCEF6894CC48368D /* Pods-NearbyRestaurants.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -352,6 +440,7 @@
 		};
 		567EB84F24DD29D3006798F4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B00CCC8D8D8AD84A6D5092F /* Pods-NearbyRestaurants.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

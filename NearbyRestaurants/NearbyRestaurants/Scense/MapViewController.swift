@@ -8,11 +8,11 @@
 
 import UIKit
 import MapKit
+import GoogleMaps
 
 final class MapViewController: UIViewController, CLLocationManagerDelegate {
-    
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var gmsMapView: GMSMapView!
     fileprivate let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestWhenInUseAuthorization()
@@ -21,12 +21,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.setupMapView()
+        self.searchTextField.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupMapView()
+        
     }
     
     func bindViewModel() {
@@ -34,12 +35,15 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func setupMapView() {
-        mapView.showsScale = true
-        mapView.showsUserLocation = true
-        getCurrentLocation()
+        guard let location = self.getCurrentLocation() else {
+            return
+        }
+        let camera = GMSCameraPosition.camera(withTarget: location, zoom: 15.0)
+        self.gmsMapView.camera = camera
+        self.gmsMapView.isMyLocationEnabled = true
     }
     
-    private func getCurrentLocation() {
+    private func getCurrentLocation() -> CLLocationCoordinate2D? {
         locationManager.delegate = self
         if #available(iOS 11.0, *) {
             locationManager.showsBackgroundLocationIndicator = true
@@ -49,6 +53,30 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
+        return locationManager.location?.coordinate ?? nil
+    }
+    
+    private func searchRestaurants(textForSearch: String) {
+        guard textForSearch != "" else {
+            debugPrint("nothing....")
+            return
+        }
+        
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = "\(textForSearch)"
+//        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        search.start(completionHandler: { (response, error) in
+            guard let response = response else {
+                debugPrint(error?.localizedDescription ?? "unknow error")
+                return
+            }
+            
+            for item in response.mapItems {
+                print(item.name ?? "not available")
+                print(item.phoneNumber ?? "there aren't phone number.")
+            }
+        })
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -62,7 +90,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
             latitudinalMeters: 700,
             longitudinalMeters: 700
         )
-        mapView.setRegion(coordinateRegion, animated: true)
+//        mapView.setRegion(coordinateRegion, animated: true)
         locationManager.stopUpdatingLocation()
     }
     
@@ -75,6 +103,14 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension MapViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.searchTextField.endEditing(true)
+//        self.searchRestaurants(textForSearch: textField.text ?? "")
+        return true
     }
 }
 

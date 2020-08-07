@@ -7,3 +7,19 @@
 //
 
 import Foundation
+import GoogleMaps
+import MapKit
+
+protocol MapRepository {
+    func getNearbyRestaurantsLocation(currentLocation: CLLocationCoordinate2D)
+}
+
+ final class MapViewRepositoryImpl: MapRepository {
+    func getNearbyRestaurantsLocation(currentLocation: CLLocationCoordinate2D) {
+        
+    }
+    
+    func getLocationDetails() {
+        
+    }
+}
