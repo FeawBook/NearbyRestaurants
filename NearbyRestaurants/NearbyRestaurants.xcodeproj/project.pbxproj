@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		567EB83D24DD29CC006798F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB83C24DD29CC006798F4 /* AppDelegate.swift */; };
 		567EB83F24DD29CC006798F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB83E24DD29CC006798F4 /* SceneDelegate.swift */; };
-		567EB84124DD29CC006798F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB84024DD29CC006798F4 /* ViewController.swift */; };
+		567EB84124DD29CC006798F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB84024DD29CC006798F4 /* MapViewController.swift */; };
 		567EB84424DD29CC006798F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84224DD29CC006798F4 /* Main.storyboard */; };
 		567EB84624DD29D3006798F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84524DD29D3006798F4 /* Assets.xcassets */; };
 		567EB84924DD29D3006798F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		567EB83924DD29CC006798F4 /* NearbyRestaurants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearbyRestaurants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB83C24DD29CC006798F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		567EB83E24DD29CC006798F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		567EB84024DD29CC006798F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		567EB84024DD29CC006798F4 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		567EB84324DD29CC006798F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		567EB84524DD29D3006798F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		567EB84824DD29D3006798F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 			children = (
 				567EB83C24DD29CC006798F4 /* AppDelegate.swift */,
 				567EB83E24DD29CC006798F4 /* SceneDelegate.swift */,
-				567EB84024DD29CC006798F4 /* ViewController.swift */,
+				567EB84024DD29CC006798F4 /* MapViewController.swift */,
 				567EB84224DD29CC006798F4 /* Main.storyboard */,
 				567EB84524DD29D3006798F4 /* Assets.xcassets */,
 				567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */,
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				567EB84124DD29CC006798F4 /* ViewController.swift in Sources */,
+				567EB84124DD29CC006798F4 /* MapViewController.swift in Sources */,
 				567EB83D24DD29CC006798F4 /* AppDelegate.swift in Sources */,
 				567EB83F24DD29CC006798F4 /* SceneDelegate.swift in Sources */,
 			);
@@ -285,13 +285,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 86SMV75A38;
+				DEVELOPMENT_TEAM = H969998C8C;
 				INFOPLIST_FILE = NearbyRestaurants/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.thanathip.NearbyRestaurants;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thanathipKum.NearbyRestaurants;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -303,13 +303,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 86SMV75A38;
+				DEVELOPMENT_TEAM = H969998C8C;
 				INFOPLIST_FILE = NearbyRestaurants/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.thanathip.NearbyRestaurants;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thanathipKum.NearbyRestaurants;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
