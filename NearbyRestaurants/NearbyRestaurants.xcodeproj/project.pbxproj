@@ -13,6 +13,9 @@
 		567EB84424DD29CC006798F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84224DD29CC006798F4 /* Main.storyboard */; };
 		567EB84624DD29D3006798F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84524DD29D3006798F4 /* Assets.xcassets */; };
 		567EB84924DD29D3006798F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */; };
+		567EB85124DD33C1006798F4 /* MapViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85024DD33C1006798F4 /* MapViewViewModel.swift */; };
+		567EB85424DD33E6006798F4 /* MapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85324DD33E6006798F4 /* MapViewUseCase.swift */; };
+		567EB85624DD33F2006798F4 /* MapViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85524DD33F2006798F4 /* MapViewRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		567EB84524DD29D3006798F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		567EB84824DD29D3006798F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		567EB84A24DD29D3006798F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		567EB85024DD33C1006798F4 /* MapViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModel.swift; sourceTree = "<group>"; };
+		567EB85324DD33E6006798F4 /* MapViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewUseCase.swift; sourceTree = "<group>"; };
+		567EB85524DD33F2006798F4 /* MapViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,58 @@
 		567EB83B24DD29CC006798F4 /* NearbyRestaurants */ = {
 			isa = PBXGroup;
 			children = (
+				567EB85A24DD3494006798F4 /* Services */,
+				567EB85924DD348D006798F4 /* Models */,
+				567EB85224DD33C6006798F4 /* Scense */,
+				567EB85824DD346A006798F4 /* UseCase */,
+				567EB85724DD3460006798F4 /* Repository */,
 				567EB83C24DD29CC006798F4 /* AppDelegate.swift */,
 				567EB83E24DD29CC006798F4 /* SceneDelegate.swift */,
-				567EB84024DD29CC006798F4 /* MapViewController.swift */,
 				567EB84224DD29CC006798F4 /* Main.storyboard */,
 				567EB84524DD29D3006798F4 /* Assets.xcassets */,
 				567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */,
 				567EB84A24DD29D3006798F4 /* Info.plist */,
 			);
 			path = NearbyRestaurants;
+			sourceTree = "<group>";
+		};
+		567EB85224DD33C6006798F4 /* Scense */ = {
+			isa = PBXGroup;
+			children = (
+				567EB84024DD29CC006798F4 /* MapViewController.swift */,
+				567EB85024DD33C1006798F4 /* MapViewViewModel.swift */,
+			);
+			path = Scense;
+			sourceTree = "<group>";
+		};
+		567EB85724DD3460006798F4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				567EB85524DD33F2006798F4 /* MapViewRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		567EB85824DD346A006798F4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				567EB85324DD33E6006798F4 /* MapViewUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		567EB85924DD348D006798F4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		567EB85A24DD3494006798F4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +189,10 @@
 			files = (
 				567EB84124DD29CC006798F4 /* MapViewController.swift in Sources */,
 				567EB83D24DD29CC006798F4 /* AppDelegate.swift in Sources */,
+				567EB85124DD33C1006798F4 /* MapViewViewModel.swift in Sources */,
+				567EB85424DD33E6006798F4 /* MapViewUseCase.swift in Sources */,
 				567EB83F24DD29CC006798F4 /* SceneDelegate.swift in Sources */,
+				567EB85624DD33F2006798F4 /* MapViewRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
