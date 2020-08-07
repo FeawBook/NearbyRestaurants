@@ -18,6 +18,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         manager.requestWhenInUseAuthorization()
         return manager
     }()
+    private var coordinateRegion: MKCoordinateRegion?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,15 +57,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         return locationManager.location?.coordinate ?? nil
     }
     
-    private func searchRestaurants(textForSearch: String) {
-        guard textForSearch != "" else {
-            debugPrint("nothing....")
+    private func searchNearbyRestaurants() {
+        guard let region = self.coordinateRegion else {
             return
         }
-        
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "\(textForSearch)"
-//        request.region = mapView.region
+        request.naturalLanguageQuery = "restaurants"
+        request.region = region
         let search = MKLocalSearch(request: request)
         search.start(completionHandler: { (response, error) in
             guard let response = response else {
@@ -85,13 +84,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         let currentLocation = location.coordinate
-        let coordinateRegion = MKCoordinateRegion(
+        coordinateRegion = MKCoordinateRegion(
             center: currentLocation,
             latitudinalMeters: 700,
             longitudinalMeters: 700
         )
-//        mapView.setRegion(coordinateRegion, animated: true)
         locationManager.stopUpdatingLocation()
+        self.searchNearbyRestaurants()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -109,7 +108,6 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
 extension MapViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.searchTextField.endEditing(true)
-//        self.searchRestaurants(textForSearch: textField.text ?? "")
         return true
     }
 }
