@@ -43,6 +43,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         let camera = GMSCameraPosition.camera(withTarget: location, zoom: 15.0)
         self.gmsMapView.camera = camera
         self.gmsMapView.isMyLocationEnabled = true
+        self.gmsMapView.delegate = self
     }
     
     private func getCurrentLocation() -> CLLocationCoordinate2D? {
@@ -78,9 +79,11 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
                 }
                 print(item.name ?? "not available")
                 print(item.phoneNumber ?? "there aren't phone number.")
+                print(item.url?.absoluteString)
+                
                 self.addMarker(location: location.coordinate, title: item.name ?? "")
             }
-            self.setCameraZoomBound() 
+            self.setCameraZoomBound()
         })
     }
     
@@ -160,6 +163,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         marker.position = location
         marker.title = title
         marker.map = self.gmsMapView
+        
         self.markerArray.append(marker)
     }
     
@@ -171,6 +175,23 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
         self.gmsMapView.animate(with: update)
     }
+    
+    private func openDetail(marker: GMSMarker) {
+        let actionSheetPicker = UIAlertController(title: "\(marker.title ?? "")", message: nil, preferredStyle: .actionSheet)
+        let phoneAction: UIAlertAction = UIAlertAction(title: "Phone number.", style: .default, handler: { _ in
+            guard let number = URL(string: "tel://" + "0959081779") else { return }
+            UIApplication.shared.open(number)
+        })
+        let urlAction: UIAlertAction = UIAlertAction(title: "Website", style: .default, handler: { _ in
+            guard let url = URL(string: "https://www.google.com") else {
+                return
+            }
+            UIApplication.shared.open(url)
+        })
+        actionSheetPicker.addAction(phoneAction)
+        actionSheetPicker.addAction(urlAction)
+        self.present(actionSheetPicker, animated: true, completion: nil)
+    }
 }
 
 extension MapViewController: UITextFieldDelegate {
@@ -178,6 +199,12 @@ extension MapViewController: UITextFieldDelegate {
         self.searchTextField.endEditing(true)
         self.searchRestaurant(textToSearch: textField.text ?? "")
         return true
+    }
+}
+
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        self.openDetail(marker: marker)
     }
 }
 
