@@ -11,15 +11,16 @@ import GoogleMaps
 import MapKit
 
 protocol MapRepository {
-    func getNearbyRestaurantsLocation(currentLocation: CLLocationCoordinate2D)
+    func getNearbyRestaurantsLocation(region: MKCoordinateRegion)
+    func saveNearbyRestaurantsToLocal(restaurant: Restaurant)
 }
 
  final class MapViewRepositoryImpl: MapRepository {
-    func getNearbyRestaurantsLocation(currentLocation: CLLocationCoordinate2D) {
+    func getNearbyRestaurantsLocation(region: MKCoordinateRegion) {
         
     }
     
-    func getLocationDetails() {
+    func saveNearbyRestaurantsToLocal(restaurant: Restaurant) {
         
     }
 }

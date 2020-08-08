@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		567EB83D24DD29CC006798F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB83C24DD29CC006798F4 /* AppDelegate.swift */; };
-		567EB83F24DD29CC006798F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB83E24DD29CC006798F4 /* SceneDelegate.swift */; };
 		567EB84124DD29CC006798F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB84024DD29CC006798F4 /* MapViewController.swift */; };
 		567EB84424DD29CC006798F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84224DD29CC006798F4 /* Main.storyboard */; };
 		567EB84624DD29D3006798F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB84524DD29D3006798F4 /* Assets.xcassets */; };
@@ -16,13 +15,13 @@
 		567EB85124DD33C1006798F4 /* MapViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85024DD33C1006798F4 /* MapViewViewModel.swift */; };
 		567EB85424DD33E6006798F4 /* MapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85324DD33E6006798F4 /* MapViewUseCase.swift */; };
 		567EB85624DD33F2006798F4 /* MapViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB85524DD33F2006798F4 /* MapViewRepository.swift */; };
+		56BEF76224DF118D00226636 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BEF76124DF118D00226636 /* Restaurant.swift */; };
 		84C6944CFF4F920EBD75D22D /* Pods_NearbyRestaurants.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B002D7B290EBBE59BE89F01A /* Pods_NearbyRestaurants.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		567EB83924DD29CC006798F4 /* NearbyRestaurants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearbyRestaurants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB83C24DD29CC006798F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		567EB83E24DD29CC006798F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		567EB84024DD29CC006798F4 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		567EB84324DD29CC006798F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		567EB84524DD29D3006798F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,6 +30,7 @@
 		567EB85024DD33C1006798F4 /* MapViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModel.swift; sourceTree = "<group>"; };
 		567EB85324DD33E6006798F4 /* MapViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewUseCase.swift; sourceTree = "<group>"; };
 		567EB85524DD33F2006798F4 /* MapViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepository.swift; sourceTree = "<group>"; };
+		56BEF76124DF118D00226636 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		5B00CCC8D8D8AD84A6D5092F /* Pods-NearbyRestaurants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyRestaurants.release.xcconfig"; path = "Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants.release.xcconfig"; sourceTree = "<group>"; };
 		B002D7B290EBBE59BE89F01A /* Pods_NearbyRestaurants.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyRestaurants.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86F5DFBBCEF6894CC48368D /* Pods-NearbyRestaurants.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyRestaurants.debug.xcconfig"; path = "Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,7 +75,6 @@
 				567EB85824DD346A006798F4 /* UseCase */,
 				567EB85724DD3460006798F4 /* Repository */,
 				567EB83C24DD29CC006798F4 /* AppDelegate.swift */,
-				567EB83E24DD29CC006798F4 /* SceneDelegate.swift */,
 				567EB84224DD29CC006798F4 /* Main.storyboard */,
 				567EB84524DD29D3006798F4 /* Assets.xcassets */,
 				567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */,
@@ -112,6 +111,7 @@
 		567EB85924DD348D006798F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				56BEF76124DF118D00226636 /* Restaurant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -137,7 +137,6 @@
 				B86F5DFBBCEF6894CC48368D /* Pods-NearbyRestaurants.debug.xcconfig */,
 				5B00CCC8D8D8AD84A6D5092F /* Pods-NearbyRestaurants.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -152,7 +151,6 @@
 				567EB83524DD29CC006798F4 /* Sources */,
 				567EB83624DD29CC006798F4 /* Frameworks */,
 				567EB83724DD29CC006798F4 /* Resources */,
-				68D526BFD9F423BC73B4F2AE /* [CP] Embed Pods Frameworks */,
 				D2AAABA1EAC84EE1C3735A20 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -233,23 +231,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		68D526BFD9F423BC73B4F2AE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NearbyRestaurants/Pods-NearbyRestaurants-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D2AAABA1EAC84EE1C3735A20 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,9 +257,9 @@
 			files = (
 				567EB84124DD29CC006798F4 /* MapViewController.swift in Sources */,
 				567EB83D24DD29CC006798F4 /* AppDelegate.swift in Sources */,
+				56BEF76224DF118D00226636 /* Restaurant.swift in Sources */,
 				567EB85124DD33C1006798F4 /* MapViewViewModel.swift in Sources */,
 				567EB85424DD33E6006798F4 /* MapViewUseCase.swift in Sources */,
-				567EB83F24DD29CC006798F4 /* SceneDelegate.swift in Sources */,
 				567EB85624DD33F2006798F4 /* MapViewRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +408,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H969998C8C;
 				INFOPLIST_FILE = NearbyRestaurants/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -446,6 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H969998C8C;
 				INFOPLIST_FILE = NearbyRestaurants/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

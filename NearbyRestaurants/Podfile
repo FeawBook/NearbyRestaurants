@@ -6,9 +6,6 @@ target 'NearbyRestaurants' do
   use_frameworks!
 
   # Pods for NearbyRestaurants
-  pod 'RealmSwift'
-  pod 'Moya'
   pod 'GoogleMaps'
-  pod 'GooglePlaces'
 
 end
