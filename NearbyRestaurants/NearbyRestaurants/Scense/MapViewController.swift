@@ -176,8 +176,10 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
             }
             UIApplication.shared.open(url)
         })
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionSheetPicker.addAction(phoneAction)
         actionSheetPicker.addAction(urlAction)
+        actionSheetPicker.addAction(cancelAction)
         self.present(actionSheetPicker, animated: true, completion: nil)
     }
     
