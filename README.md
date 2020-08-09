@@ -10,3 +10,13 @@ This is application for find nearby restaurants
 **Get nearby Restaurant**
 
 ![Alt Text](https://media.giphy.com/media/SS2QRFzVRQfoO8YCzm/giphy.gif)
+
+**Search Restaurants**
+
+![Alt Text](https://media.giphy.com/media/UVezRCRAQq81JskJBQ/giphy.gif)
+
+**Make call and go to website**
+
+![Alt Text](https://media.giphy.com/media/kckw2uB188I3qMlIOk/giphy.gif)
+
+
