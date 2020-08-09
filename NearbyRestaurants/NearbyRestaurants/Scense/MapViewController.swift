@@ -28,6 +28,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        disableDarkMode()
         let setup: MapViewViewModel = MapViewViewModel()
         self.configure(viewModel: setup)
         self.setupMapView()
@@ -38,12 +39,20 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewWillAppear(true)
     }
     
-    func bindViewModel() {
+    private func bindViewModel() {
         self.viewModel.output.didGetNearbyRestaurantsFromLocalSuccess = didGetNearbyRestaurantsLocalSuccess
         self.viewModel.output.didGetNearbyRestaurantsFromLocalFail = didGetNearbyLocationsLocalFail
         self.viewModel.output.didGetNearbyRestaurantsFromLocalWithKeywordSuccess = didGetNearbyRestaurantsFromLocalWithKeywordSuccess
         self.viewModel.output.didGetNearbyRestaurantsFromLocalWithKeywordFail = didGetNearbyRestaurantsFromLocalWithKeywordFail
         self.viewModel.output.didGetNearbyRestaurantsFromNetworkWithKeywordSuccess = didGetNearbyRestaurantsFromNetworkWithKeywordSuccess
+    }
+    
+    fileprivate func disableDarkMode() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     private func configure(viewModel: MapViewViewModel) {
@@ -66,6 +75,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         return locationManager.location?.coordinate ?? nil
+    }
+    
+    @IBAction private func getNearbyRestaurants(_ sender: Any) {
+        guard let region = self.coordinateRegion else {
+            return
+        }
+        self.viewModel.input.saveNearbyRestaurantsToLocal(region: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

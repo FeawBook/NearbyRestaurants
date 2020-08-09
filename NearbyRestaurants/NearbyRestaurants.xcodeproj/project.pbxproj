@@ -78,7 +78,6 @@
 				567EB85824DD346A006798F4 /* UseCase */,
 				567EB85724DD3460006798F4 /* Repository */,
 				567EB83C24DD29CC006798F4 /* AppDelegate.swift */,
-				567EB84224DD29CC006798F4 /* Main.storyboard */,
 				567EB84524DD29D3006798F4 /* Assets.xcassets */,
 				567EB84724DD29D3006798F4 /* LaunchScreen.storyboard */,
 				567EB84A24DD29D3006798F4 /* Info.plist */,
@@ -91,6 +90,7 @@
 			children = (
 				567EB84024DD29CC006798F4 /* MapViewController.swift */,
 				567EB85024DD33C1006798F4 /* MapViewViewModel.swift */,
+				567EB84224DD29CC006798F4 /* Main.storyboard */,
 			);
 			path = Scense;
 			sourceTree = "<group>";
