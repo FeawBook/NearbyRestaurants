@@ -9,16 +9,35 @@
 import Foundation
 import MapKit
 
-struct Restaurant {
+class Restaurant: NSObject, NSCoding {
     let name: String?
-    let location: CLLocationCoordinate2D?
+    let lat: Double?
+    let long: Double?
     let phoneNumber: String?
     let website: String?
     
-    init(name: String, location: CLLocationCoordinate2D, phoneNumber: String, website: String) {
+    init(name: String, lat: Double?, long: Double?, phoneNumber: String, website: String) {
         self.name = name
-        self.location = location
+        self.lat = lat
+        self.long = long
         self.phoneNumber = phoneNumber
         self.website = website
+    }
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        let name = aDecoder.decodeObject(forKey: "name") as! String
+        let lat = aDecoder.decodeObject(forKey: "lat") as! Double
+        let long = aDecoder.decodeObject(forKey: "long") as! Double
+        let phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as! String
+        let website = aDecoder.decodeObject(forKey: "website") as! String
+        self.init(name: name, lat: lat, long: long, phoneNumber: phoneNumber,website: website)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(lat, forKey: "lat")
+        aCoder.encode(long, forKey: "long")
+        aCoder.encode(phoneNumber, forKey: "phoneNumber")
+        aCoder.encode(website, forKey: "website")
     }
 }

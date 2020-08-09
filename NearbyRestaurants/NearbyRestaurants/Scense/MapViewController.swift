@@ -20,20 +20,31 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     }()
     private var coordinateRegion: MKCoordinateRegion?
     private var markerArray: [GMSMarker] = []
+    var viewModel: MapViewViewModel! {
+        didSet {
+            bindViewModel()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let setup: MapViewViewModel = MapViewViewModel()
+        self.configure(viewModel: setup)
         self.setupMapView()
         self.searchTextField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
     }
     
     func bindViewModel() {
-        
+        self.viewModel.output.didGetNearbyRestaurantsFromLocalSuccess = didGetNearbyRestaurantsLocalSuccess
+        self.viewModel.output.didGetNearbyRestaurantsFromLocalFail = didGetNearbyLocationsLocalFail
+    }
+    
+    private func configure(viewModel: MapViewViewModel) {
+        self.viewModel = viewModel
     }
     
     private func setupMapView() {
@@ -144,7 +155,10 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
             longitudinalMeters: 700
         )
         locationManager.stopUpdatingLocation()
-        self.searchNearbyRestaurants()
+        if let region = self.coordinateRegion {
+            self.viewModel.input.saveNearbyRestaurantsToLocal(region: region)
+        }
+//        self.searchNearbyRestaurants()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -191,6 +205,21 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         actionSheetPicker.addAction(phoneAction)
         actionSheetPicker.addAction(urlAction)
         self.present(actionSheetPicker, animated: true, completion: nil)
+    }
+    
+    private func didGetNearbyRestaurantsLocalSuccess(restaurants: [Restaurant]) {
+        self.gmsMapView.clear()
+        for restaurant in restaurants {
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+        }
+        self.setCameraZoomBound()
+    }
+    
+    private func didGetNearbyLocationsLocalFail() {
+        guard let region = self.coordinateRegion else {
+            return
+        }
+        self.viewModel.input.saveNearbyRestaurantsToLocal(region: region)
     }
 }
 

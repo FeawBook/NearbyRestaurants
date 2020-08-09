@@ -10,23 +10,19 @@ import Foundation
 import MapKit
 
 protocol GetRestaurantsUseCase {
-    func getNearbyRestaurants(region: MKCoordinateRegion?) -> [Restaurant]
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant]
     func getNearbyRestaurantsFromLocal() -> [Restaurant]
     func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant]
 }
 
 protocol SaveNearbyRestaurantsUseCase {
-    func saveNearbyRestaurantsToLocal(restaurants: [Restaurant])
+    func saveNearbyRestaurantsToLocal(region: MKCoordinateRegion?)
 }
 
-final class MapViewUseCaseImpl: GetRestaurantsUseCase {
+final class GetRestaurantsUseCaseImpl: GetRestaurantsUseCase {
     private var mapViewRepository: MapViewRepository
-    init(mapViewRepository: MapViewRepositoryImpl) {
+    init(mapViewRepository: MapViewRepository = MapViewRepositoryImpl()) {
         self.mapViewRepository = mapViewRepository
-    }
-    func getNearbyRestaurants(region: MKCoordinateRegion?) -> [Restaurant] {
-        return self.mapViewRepository.getNearbyRestaurantsLocation(region: region)
     }
     
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant] {
@@ -41,4 +37,20 @@ final class MapViewUseCaseImpl: GetRestaurantsUseCase {
         return self.mapViewRepository.searchNearbyRestaurantFromMap(region: region, textToSearch: textToSearch)
     }
     
+}
+
+final class SaveRestaurantsUseCaseImpl: SaveNearbyRestaurantsUseCase {
+    private var mapViewRepository: MapViewRepository
+    init(mapViewRepository: MapViewRepository = MapViewRepositoryImpl()) {
+        self.mapViewRepository = mapViewRepository
+    }
+    
+    func saveNearbyRestaurantsToLocal(region: MKCoordinateRegion?) {
+        guard let region = region else {
+            return
+        }
+        self.mapViewRepository.getNearbyRestaurantsLocation(region: region, completion: { restaurants in
+            self.mapViewRepository.saveNearbyRestaurantsToLocal(restaurants: restaurants)
+        })
+    }
 }

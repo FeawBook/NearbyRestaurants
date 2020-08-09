@@ -11,7 +11,7 @@ import GoogleMaps
 import MapKit
 
 protocol MapViewRepository {
-    func getNearbyRestaurantsLocation(region: MKCoordinateRegion?) -> [Restaurant]
+    func getNearbyRestaurantsLocation(region: MKCoordinateRegion?, completion: @escaping (([Restaurant]) -> Void?))
     func saveNearbyRestaurantsToLocal(restaurants: [Restaurant])
     func getNearbyRestaurantsFromLocal() -> [Restaurant]
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant]
@@ -19,9 +19,9 @@ protocol MapViewRepository {
 }
 
  final class MapViewRepositoryImpl: MapViewRepository {
-    func getNearbyRestaurantsLocation(region: MKCoordinateRegion?) -> [Restaurant] {
+    func getNearbyRestaurantsLocation(region: MKCoordinateRegion?, completion: @escaping (([Restaurant]) -> Void?)) {
         guard let region = region else {
-            return []
+            return
         }
         var arrRestaurant: [Restaurant] = []
         
@@ -38,22 +38,28 @@ protocol MapViewRepository {
                 guard let location = item.placemark.location else {
                     return
                 }
-                let restaurant = Restaurant(name: item.name ?? "", location: location.coordinate, phoneNumber: item.phoneNumber ?? "", website: item.url?.absoluteString ?? "")
+                let restaurant = Restaurant(name: item.name ?? "", lat: Double(location.coordinate.latitude), long: Double(location.coordinate.longitude), phoneNumber: item.phoneNumber ?? "", website: item.url?.absoluteString ?? "")
                 arrRestaurant.append(restaurant)
                 print(item.name ?? "not available")
                 print(item.phoneNumber ?? "there aren't phone number.")
             }
+            completion(arrRestaurant)
         })
-        return arrRestaurant
+        
     }
     
     func saveNearbyRestaurantsToLocal(restaurants: [Restaurant]) {
-        UserDefaults.standard.set(restaurants, forKey: "restaurants")
+        if let _ = UserDefaults.standard.data(forKey: "restaurants") {
+            UserDefaults.standard.removeObject(forKey: "restaurants")
+        }
+        let encodeData: Data = NSKeyedArchiver.archivedData(withRootObject: restaurants)
+        UserDefaults.standard.set(encodeData, forKey: "restaurants")
+        UserDefaults.standard.synchronize()
     }
     
     func getNearbyRestaurantsFromLocal() -> [Restaurant] {
-        if let restaurants = UserDefaults.standard.array(forKey: "restaurants") as? [Restaurant] {
-            return restaurants
+        if let restaurantsDecode = UserDefaults.standard.data(forKey: "restaurants") {
+            return NSKeyedUnarchiver.unarchiveObject(with: restaurantsDecode) as! [Restaurant]
         } else {
             return []
         }
@@ -86,8 +92,9 @@ protocol MapViewRepository {
                 guard let location = item.placemark.location else {
                     return
                 }
-                let restaurant = Restaurant(name: item.name ?? "", location: location.coordinate, phoneNumber: item.phoneNumber ?? "", website: item.url?.absoluteString ?? "")
+                let restaurant = Restaurant(name: item.name ?? "", lat: Double(location.coordinate.latitude), long: Double(location.coordinate.longitude), phoneNumber: item.phoneNumber ?? "", website: item.url?.absoluteString ?? "")
                 arrRestaurant.append(restaurant)
+                
                 print(item.name ?? "not available")
                 print(item.phoneNumber ?? "there aren't phone number.")
             }
