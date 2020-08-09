@@ -13,9 +13,9 @@ struct Restaurant {
     let name: String?
     let location: CLLocationCoordinate2D?
     let phoneNumber: String?
-    let website: URL?
+    let website: String?
     
-    init(name: String, location: CLLocationCoordinate2D, phoneNumber: String, website: URL) {
+    init(name: String, location: CLLocationCoordinate2D, phoneNumber: String, website: String) {
         self.name = name
         self.location = location
         self.phoneNumber = phoneNumber
