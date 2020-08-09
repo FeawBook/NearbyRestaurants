@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import GoogleMaps
 
 protocol MapViewInputProtocol {
     func saveNearbyRestaurantsToLocal(region: MKCoordinateRegion)
@@ -21,6 +22,10 @@ protocol MapViewOutputProtocol: class {
     var didGetNearbyRestaurantsFromLocalFail: (() -> Void)? { get set }
     var didGetNearbyRestaurantsFromLocalWithKeywordFail: (() -> Void?)? { get set }
     var didGetNearbyRestaurantsFromNetworkWithKeywordSuccess: (([Restaurant]) -> Void?)? { get set }
+    var didGetPhoneNumberForRestaurantsSuccess: ((String) -> Void)? { get set }
+    var didGetWebsiteForRestaurantsSuccess: ((String) -> Void)? { get set }
+    var didGetPhoneNumberForRestaurantsFail: (() -> Void)? { get set }
+    var didGetWebsiteForRestaurantsFail: (() -> Void)? { get set }
 }
 
 protocol MapProtocol: MapViewInputProtocol, MapViewOutputProtocol {
@@ -42,6 +47,14 @@ final class MapViewViewModel: MapProtocol {
     var didGetNearbyRestaurantsFromLocalWithKeywordFail: (() -> Void?)?
     
     var didGetNearbyRestaurantsFromNetworkWithKeywordSuccess: (([Restaurant]) -> Void?)?
+    
+    var didGetPhoneNumberForRestaurantsSuccess: ((String) -> Void)?
+    
+    var didGetWebsiteForRestaurantsSuccess: ((String) -> Void)?
+    
+    var didGetPhoneNumberForRestaurantsFail: (() -> Void)?
+    
+    var didGetWebsiteForRestaurantsFail: (() -> Void)?
     
     private var getRestaurantsUseCase: GetRestaurantsUseCase = GetRestaurantsUseCaseImpl()
     

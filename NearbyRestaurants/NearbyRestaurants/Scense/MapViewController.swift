@@ -62,70 +62,10 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     private func getCurrentLocation() -> CLLocationCoordinate2D? {
         locationManager.delegate = self
-        if #available(iOS 11.0, *) {
-            locationManager.showsBackgroundLocationIndicator = true
-        } else {
-            
-        }
-        
+        locationManager.showsBackgroundLocationIndicator = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         return locationManager.location?.coordinate ?? nil
-    }
-    
-    private func searchNearbyRestaurants() {
-        guard let region = self.coordinateRegion else {
-            return
-        }
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "restaurants"
-        request.region = region
-        let search = MKLocalSearch(request: request)
-        search.start(completionHandler: { (response, error) in
-            guard let response = response else {
-                debugPrint(error?.localizedDescription ?? "unknow error")
-                return
-            }
-            
-            for item in response.mapItems {
-                guard let location = item.placemark.location else {
-                    return
-                }
-                print(item.name ?? "not available")
-                print(item.phoneNumber ?? "there aren't phone number.")
-                print(item.url?.absoluteString)
-                
-                self.addMarker(location: location.coordinate, title: item.name ?? "")
-            }
-            self.setCameraZoomBound()
-        })
-    }
-    
-    private func searchRestaurant(textToSearch: String) {
-        guard let region = self.coordinateRegion else {
-            return
-        }
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "\(textToSearch)"
-        request.region = region
-        let search = MKLocalSearch(request: request)
-        search.start(completionHandler: { (response, error) in
-            guard let response = response else {
-                debugPrint(error?.localizedDescription ?? "unknow error")
-                return
-            }
-            self.gmsMapView.clear()
-            self.markerArray.removeAll()
-            for item in response.mapItems {
-                guard let location = item.placemark.location else {
-                    return
-                }
-                print(item.name ?? "not available")
-                print(item.phoneNumber ?? "there aren't phone number.")
-                self.addMarker(location: location.coordinate, title: item.name ?? "")
-            }
-            self.setCameraZoomBound()
-        })
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -161,7 +101,6 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         if let region = self.coordinateRegion {
             self.viewModel.input.saveNearbyRestaurantsToLocal(region: region)
         }
-//        self.searchNearbyRestaurants()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -182,10 +121,11 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func addMarker(location: CLLocationCoordinate2D, title: String) {
+    private func addMarker(location: CLLocationCoordinate2D, title: String, restaurant: Restaurant) {
         let marker = GMSMarker()
         marker.position = location
         marker.title = title
+        marker.userData = restaurant
         marker.map = self.gmsMapView
         
         self.markerArray.append(marker)
@@ -201,13 +141,21 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func openDetail(marker: GMSMarker) {
+        guard let restaurantData = marker.userData as? Restaurant else {
+            return
+        }
         let actionSheetPicker = UIAlertController(title: "\(marker.title ?? "")", message: nil, preferredStyle: .actionSheet)
-        let phoneAction: UIAlertAction = UIAlertAction(title: "Phone number.", style: .default, handler: { _ in
-            guard let number = URL(string: "tel://" + "0959081779") else { return }
+        let phoneAction: UIAlertAction = UIAlertAction(title: "Phone Number.", style: .default, handler: { _ in
+            let phoneNumber = self.reformatPhoneNumber(number: restaurantData.phoneNumber ?? "")
+            guard let number = URL(string: "tel://" + "\(String(describing: phoneNumber))") else {
+                self.alertError(with: "Phone number not found.")
+                return
+            }
             UIApplication.shared.open(number)
         })
         let urlAction: UIAlertAction = UIAlertAction(title: "Website", style: .default, handler: { _ in
-            guard let url = URL(string: "https://www.google.com") else {
+            guard let url = URL(string: "\(restaurantData.website ?? "")") else {
+                self.alertError(with: "Website not found.")
                 return
             }
             UIApplication.shared.open(url)
@@ -220,7 +168,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     private func didGetNearbyRestaurantsLocalSuccess(restaurants: [Restaurant]) {
         self.gmsMapView.clear()
         for restaurant in restaurants {
-            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "", restaurant: restaurant)
         }
         self.setCameraZoomBound()
     }
@@ -235,7 +183,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     private func didGetNearbyRestaurantsFromLocalWithKeywordSuccess(restaurants: [Restaurant]) {
         self.gmsMapView.clear()
         for restaurant in restaurants {
-            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "", restaurant: restaurant)
         }
         self.setCameraZoomBound()
     }
@@ -254,9 +202,25 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         self.gmsMapView.clear()
         for restaurant in restaurants {
-            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "", restaurant: restaurant)
         }
         self.setCameraZoomBound()
+    }
+    
+    private func reformatPhoneNumber(number: String) -> String {
+        guard !number.isEmpty else {
+            return ""
+        }
+        var numberToCall = ""
+        let removeprefix = number.replacingOccurrences(of: "_$!<", with: "")
+        let removesuffix = removeprefix.replacingOccurrences(of: ">!$_", with: "")
+        numberToCall = removesuffix
+        let replacedLeftBracket = numberToCall.replacingOccurrences(of: "(", with: "")
+        let replacedRightBracket = replacedLeftBracket.replacingOccurrences(of: ")", with: "")
+        let replacedUpperLineNumber = replacedRightBracket.replacingOccurrences(of: "-", with: "")
+        let replaced2SpaceNumber = replacedUpperLineNumber.replacingOccurrences(of: " ", with: "")
+        let replaceZeroFormat = replaced2SpaceNumber.replace(target: "+66", withString: "0")
+        return replaceZeroFormat.digits
     }
 }
 
@@ -272,5 +236,6 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         self.openDetail(marker: marker)
     }
+    
 }
 
