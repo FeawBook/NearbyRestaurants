@@ -41,6 +41,9 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     func bindViewModel() {
         self.viewModel.output.didGetNearbyRestaurantsFromLocalSuccess = didGetNearbyRestaurantsLocalSuccess
         self.viewModel.output.didGetNearbyRestaurantsFromLocalFail = didGetNearbyLocationsLocalFail
+        self.viewModel.output.didGetNearbyRestaurantsFromLocalWithKeywordSuccess = didGetNearbyRestaurantsFromLocalWithKeywordSuccess
+        self.viewModel.output.didGetNearbyRestaurantsFromLocalWithKeywordFail = didGetNearbyRestaurantsFromLocalWithKeywordFail
+        self.viewModel.output.didGetNearbyRestaurantsFromNetworkWithKeywordSuccess = didGetNearbyRestaurantsFromNetworkWithKeywordSuccess
     }
     
     private func configure(viewModel: MapViewViewModel) {
@@ -172,6 +175,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func alertError(with stringError: String) {
+        let alertController = UIAlertController(title: "Error", message: "\(stringError)", preferredStyle: .alert)
+        let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     private func addMarker(location: CLLocationCoordinate2D, title: String) {
         let marker = GMSMarker()
         marker.position = location
@@ -221,12 +231,39 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         self.viewModel.input.saveNearbyRestaurantsToLocal(region: region)
     }
+    
+    private func didGetNearbyRestaurantsFromLocalWithKeywordSuccess(restaurants: [Restaurant]) {
+        self.gmsMapView.clear()
+        for restaurant in restaurants {
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+        }
+        self.setCameraZoomBound()
+    }
+    
+    private func didGetNearbyRestaurantsFromLocalWithKeywordFail() {
+        guard let region = self.coordinateRegion else {
+            return
+        }
+        self.viewModel.input.searchLocationFromNetwork(keyword: self.searchTextField.text ?? "", region: region)
+    }
+    
+    private func didGetNearbyRestaurantsFromNetworkWithKeywordSuccess(restaurants: [Restaurant]) {
+        guard restaurants.count != 0 else {
+            self.alertError(with: "Location not found")
+            return
+        }
+        self.gmsMapView.clear()
+        for restaurant in restaurants {
+            self.addMarker(location: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: restaurant.lat ?? 0.0)!, longitude: CLLocationDegrees(exactly: restaurant.long ?? 0.0)!), title: restaurant.name ?? "")
+        }
+        self.setCameraZoomBound()
+    }
 }
 
 extension MapViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.searchTextField.endEditing(true)
-        self.searchRestaurant(textToSearch: textField.text ?? "")
+        self.viewModel.input.searchNearbyRestaurantFromLocal(keyword: textField.text ?? "")
         return true
     }
 }

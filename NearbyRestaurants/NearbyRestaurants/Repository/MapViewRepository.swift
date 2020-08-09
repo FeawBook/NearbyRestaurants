@@ -15,7 +15,7 @@ protocol MapViewRepository {
     func saveNearbyRestaurantsToLocal(restaurants: [Restaurant])
     func getNearbyRestaurantsFromLocal() -> [Restaurant]
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant]
-    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant]
+    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String, completion: @escaping (([Restaurant]) -> Void?))
 }
 
  final class MapViewRepositoryImpl: MapViewRepository {
@@ -66,16 +66,17 @@ protocol MapViewRepository {
     }
     
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant] {
-        if let restaurants = UserDefaults.standard.array(forKey: "restaurants") as? [Restaurant] {
-            return restaurants.filter { $0.name!.contains(keyword) }
+        if let restaurants = UserDefaults.standard.data(forKey: "restaurants") {
+            let decodeRestaurants = NSKeyedUnarchiver.unarchiveObject(with: restaurants) as! [Restaurant]
+            return decodeRestaurants.filter{ $0.name! == keyword }
         } else {
             return []
         }
     }
     
-    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant] {
+    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String, completion: @escaping (([Restaurant]) -> Void?)) {
         guard let region = region else {
-            return []
+            return
         }
         var arrRestaurant: [Restaurant] = []
         
@@ -95,11 +96,11 @@ protocol MapViewRepository {
                 let restaurant = Restaurant(name: item.name ?? "", lat: Double(location.coordinate.latitude), long: Double(location.coordinate.longitude), phoneNumber: item.phoneNumber ?? "", website: item.url?.absoluteString ?? "")
                 arrRestaurant.append(restaurant)
                 
-                print(item.name ?? "not available")
-                print(item.phoneNumber ?? "there aren't phone number.")
+                debugPrint(item.name ?? "not available")
+                debugPrint(item.phoneNumber ?? "there aren't phone number.")
             }
+            completion(arrRestaurant)
         })
-        return arrRestaurant
     }
     
 }

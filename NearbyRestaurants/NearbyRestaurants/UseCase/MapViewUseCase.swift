@@ -12,7 +12,7 @@ import MapKit
 protocol GetRestaurantsUseCase {
     func searchNearbyRestaurantsFromLocal(keyword: String) -> [Restaurant]
     func getNearbyRestaurantsFromLocal() -> [Restaurant]
-    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant]
+    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String, completion: @escaping (([Restaurant]) -> Void?))
 }
 
 protocol SaveNearbyRestaurantsUseCase {
@@ -33,8 +33,10 @@ final class GetRestaurantsUseCaseImpl: GetRestaurantsUseCase {
         return self.mapViewRepository.getNearbyRestaurantsFromLocal()
     }
     
-    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant] {
-        return self.mapViewRepository.searchNearbyRestaurantFromMap(region: region, textToSearch: textToSearch)
+    func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String, completion: @escaping (([Restaurant]) -> Void?)) {
+        self.mapViewRepository.searchNearbyRestaurantFromMap(region: region, textToSearch: textToSearch, completion: { restaurants in
+            completion(restaurants)
+        })
     }
     
 }
