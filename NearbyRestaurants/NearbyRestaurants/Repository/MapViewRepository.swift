@@ -10,7 +10,7 @@ import Foundation
 import GoogleMaps
 import MapKit
 
-protocol MapRepository {
+protocol MapViewRepository {
     func getNearbyRestaurantsLocation(region: MKCoordinateRegion?) -> [Restaurant]
     func saveNearbyRestaurantsToLocal(restaurants: [Restaurant])
     func getNearbyRestaurantsFromLocal() -> [Restaurant]
@@ -18,7 +18,7 @@ protocol MapRepository {
     func searchNearbyRestaurantFromMap(region: MKCoordinateRegion?, textToSearch: String) -> [Restaurant]
 }
 
- final class MapViewRepositoryImpl: MapRepository {
+ final class MapViewRepositoryImpl: MapViewRepository {
     func getNearbyRestaurantsLocation(region: MKCoordinateRegion?) -> [Restaurant] {
         guard let region = region else {
             return []
